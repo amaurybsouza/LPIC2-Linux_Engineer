@@ -1,0 +1,796 @@
+200.1{ Peso 6 - Mensuração e análise dos recursos utilizados
+  iostat - análise de i/o, memória e processamento
+	%user - nível de usuário
+	%nice - nível de usuário com nível diferente
+	%system - nível de sistema
+	%iowait - aguardando I/O de disco
+	%steal - aguardando hipervisor
+	%idle - ociosa
+	tps - transferências por segundo
+	-d - intervalo em segundos
+	-m - valores em megabytes
+	-p - informações sobre dispositivos de bloco
+  sar - relatórios de i/o, memória e processamento ao longo do tempo
+	/etc/default/sysstat - arquivo de configuração
+      	ENABLE=true - habilita o sar
+	/var/log/sysstat - banco de dados do sar
+	sar - dados de CPU de hoje
+  	-f /var/log/sysstat/sa04 - mostra os dados do dia 4
+  	-d - I/O
+  	-B - paginação
+  	-r - Ram
+  	-S - swap
+  	-n DEV - rede
+  netstat - dados da rede
+	-i - tráfego de rede
+	-s - tráfego por protocolo
+	-t - tcp
+	-a - todas as conexões
+	-u - udp
+  vmstat - análise de processamento, memória e i/o
+	2 10 - 10 interações, uma a cada 2 segundos
+	proc - processos
+  	r - processos executando
+  	b - processos dormindo
+	memory - memória ram e swap
+  	swpd - swap total
+  	free - memória livre
+  	buff - buffer
+  	cache - cache
+  	inact - memória inativa (opção -a)
+  	active - memória ativa (opção -a)
+	swap - i/o de swap
+  	si - swap out por segundo
+  	so - swap in por segundo
+	io - i/o de disco
+  	bi - blocos in por segundo
+  	b0 - blocos out por segundo
+	cpu - dados de processamento
+  	wa - aguardando I/O
+  	st - tempo roubado de um máquina virtual
+	-d - uso de disco
+	-p - especifica a partição
+  free - checa uso de ram e swap
+  ps - análise de processos
+	-a - todos os processos
+	-r - somente processos rodando
+	-x - processos sem terminal
+	-g - grupo
+	-p - pid (-p 1234 2345)
+	-t - terminal
+	-u - usuário (-u user1,user2)
+	-f - lista full
+	-w - lista longa
+	f - hierarquia
+  top - análise de processos de uma forma interativa
+	-d - delay
+	-u - usuário
+	-p - pid
+	-w - colunas
+  htop - top mehorado
+  pstree - mostra os processos em forma de árvore genealógica
+	-g - grupo
+	-l - lista longa
+	-n - classifica por pid
+	-p - pid
+  w - mosta os usuários logados
+  lsof - mostra os objetos abertos
+	-p PID - arquivos abertos pelo PID
+	-u USUÁRIO - arquivos abertos pelo USUÁRIO
+	-i - conexões de rede
+  uptime - tempo ligado, load e usuários logados
+  iperf - testa de desempenho de aplicações de rede
+	-s - servidor
+	-c ALVO - cliente
+	-p - porta (padrão é 5001)
+  iptraf - informações online da rede
+	filter - filtra
+  darkstat - informações gráficas da rede
+	/etc/darkstat/init.cfg - arquivo de configuração
+  	INTERFACE - interface que será ouvida
+  	DIR - caminho do banco de dados
+  	PORT - porta para acessar os relatórios
+  	BINDIP - ip em que o darkstat fará bind para ver os relatórios
+  	LOCAL - endereço da rede local para gerar estatísticas corretas }
+200-2{ Peso 2 - Prevendo necessidades futuras de recursos
+  collectd - coleta dados para análise gráfica de desempenho
+	/etc/collectd/collectd.conf - arquivo de configuração
+	/var/lib/collectd - banco de dados
+	rrdtools - gera gráficos
+  cacti - ferramenta de análise de desempenho ao longo do tempo
+  mrtg - gera gráficos de desempenho do equipamento
+	/etc/mrtg/mrtg.cfg - configuração
+      	WorkDir - onde serão gravadas os gráficos
+      	Target - endereço do servidor
+  nagios/icinga - ferramenta de monitoramento de disponibilidade e desempenho}
+201-1{ Peso 2 - Componentes do kernel
+  /usr/src/ - local dos fontes
+  zImage - tamanho máximo de 512Kb
+  bzImage - sem limite de tamanho
+  /usr/src/linux-4.15 - local dos fontes do kernel 4.15
+  /usr/src/linux-4.15/Documentation/ - documentação do código fonte do kernel 4.15
+  compressão xz - 30% menor do que gzip
+  compresão bzip - 10% menor do que gzip}
+201-2{ Peso 3 - Compilação do kernel
+  mkinitrd (Red Hat) - cria um ramdisk
+	-c - elimina a árvore anterior
+	-k - versão do kernel
+	-m - módulos (separados por :)
+	-o - nome do ramdisk
+  mkinitramfs (Debian) - cria um ramdisk
+	/etc/initramfs/initramfs.conf
+  	MODULES - relação dos módulos
+  	COMPRESS - tipo de compressão
+	-o - nome do ramdisk
+  dracut - mkinitrd para sistemas Red Hat atuais
+  update-initramfs - atualiza o ramdisk atual
+  /etc/lilo.conf - configuração do boot loader Lilo
+	image - arquivo do kernel
+	root - partição raiz
+	initrd - arquivo de ramdisk
+	label - texto da entrada do menu
+	read-only - monta raiz como somente leitura
+  	comando lilo - grava o lilo no mbr
+  /boot/grub/menu.lst - arquivo de configuração do grub 1
+	title - texto do menu
+	root (hd0,0) - partição raiz
+  kernel - arquivo do kernel
+	initrd - arquivo de ramdisk
+	patch - atualiza um arquivo texto
+      	-p1 - aplica um patch
+      	-R - desfaz um patch
+	/usr/src/linux/ - fonte do kernel
+  	Makefile - personalização do kernel
+        	VERSION - família do kernel
+        	PATCHLEVEL - versão
+    	SUBLEVEL - patch
+        	EXTRAVERSION - personalização
+    	NAME - nome
+	make - compila o kernel
+      	config/xconfig/menuconfig/gconfig - personaliza o kernel
+  	oldconfig - usa as configurações anteriores
+      	clean - zera as personalizações
+  	mrproper - apaga os objetos antigos
+      	zImage/bzImage - compila o kernel em gzip e bzip2 respectivamente
+  	modules - compila os módulos
+      	modules_install - instala os módulos
+  	all - faz todos os make
+      	rpm-pkg/binrpm-pkg/deb-pkg/tar-pkg/targz-pkg/tarbz2-pkg - gera pacote para instalação do novo kernel via gerenciador de pacotes
+      	-j4 - usa 4 processadores para compilar
+	.config - arquivo geraldo pelo make config/xconfig/menuconfig/gconfig
+	/lib/modules/versão - local dos módulos
+  	modules.dep - relação das dependências entre módulos
+	depmod - gera o modules.dep
+	dkms - faz um módulo de um kernel funcionar em outro
+      	status - status do dkms
+      	dkms install -m nvidia -v 334.21 - adiciona o módulo nvidia versão 334.21 no kernal atual
+  	dkms install -m nvidia -v 334.21 --all - adiciona o módulo nvidia versão 334.21 em todos os kernels
+      	dkms remove -m nvidia -v 331.49 --all - remove o módulo nvidia versão 331.49 de todos os kernels}
+201-3{ Peso 4 - Análise e gerenciamento do kernel em produção
+  uname - informações do kernel
+	-a - todas as opções
+	-i - tipo de processador
+	-m - nome da máquina
+	-n - nome da máquina na rede
+	-p - processador
+	-o - sistema operacional
+	-r - versão do código fonte do kernel
+	-s - nome do kernal
+	-v - versão de compilação do kernel
+  /proc/sys/kernel - informações sobre o kernel
+  /lib/modules/<versao> - local dos módulos
+	modules.dep - contém a relação das dependências dos módulos
+  depmod -a - cria o arquivo modules.dep
+  insmod - carrega um módulo
+  modprobe - carrega um módulo tratando as dependências
+	-r - remove um modulo
+	--show-depends - mostra as dependências de um módulo
+	modprobe --show-depends - mostra as dependências de um módulo
+  lsmod - lista os módulos atualmente carregados.
+  rmmod - remove um módulo
+  modinfo - mostra informações sobre um modulo
+	-p - motra as opções que o módulo aceita
+  /etc/modprobe.d - arquivos de configurações dos módulos
+	modesetting.conf - personaliza um módulo
+  /etc/modules - quais módulos são carregados no boot
+  /proc - informações sobre o sistema em geral
+	kallsyms - informações dos símbolos disponíveis no kernel
+  /sys - informações sobre o sistema em geral
+  udev - monitora os dispositivos e executa tarefas para eventos de hardware
+	/etc/udev/udev.conf - arquivos de configuração
+	/etc/udev/rules.d - regras
+  	== - condição a ser satisfeita
+  	= - ação a ser tomada
+  	MODE - chmod
+  	OWNER - chown
+  	GROUP - chgrp
+  	NAME - nome do dispositivo (eth0)
+  	ATTR{address} - endereço mac
+  	OPTIONS=last_rule - não executar mais regras
+	udevadm - mostra informações sobre os hardware
+	udevmonitor - mostra na tela os eventos do udev (antigo)
+  dmesg - mostra o kernel ring buffer
+	-c - limpa o buffer depois da leitura
+	-C - limpa o buffer imediatamente
+	-e - mostra o horário
+  lspci - relação dos dispositivos pci
+	-k - mostra os módulos que estão usando o dispositivo
+	-v - verbose, mostra mais informações
+  lsusb - mostra informações sobre dispositivos USB
+	-v - mais detalhes
+	-t - mostra a árvore de dependências
+  procinfo - pacotes que contém o lsdev
+	lsdev - mostra informações de IRQ, Portas lógicas e DMA dos hardware
+	procinfo - gera estatísticas do /proc e /sys;
+	socklist - mostra os soquetes de rede abertos através do /proc/net
+  /etc/sysctl.conf - controla opções do kernel no momento do boot
+  sysctl - altera opções do kernel
+	-a - mostra todas as opções do kernel}
+202-1{ Peso 3 - Personalização do sistema Sysvinit
+  SysVinit - gerenciador de processos mais antigo
+	processo init - pid 1
+	/etc/rc.d - local dos scripts no Slackware (BSD)
+	/etc/init.d - local dos scripts no Debian
+	/etc/inittab - define, entre outras coisas, o runlevel padrão
+  	xx:4:initdefalt: - runlevel 4 como padrão
+	/etc/rcx.d - script iniciados ou parados no runlevel x
+	chkconfig - configura quais serviços serão ou não iniciados no boot do Red Hat
+  	--list - mostra se um serviço está ativo ou não nos diversos runlevels
+  	--level 345 ntpd off - desativa o serviço ntpd nos runlevels 3, 4 e 5
+	update-rc.d - configura quais serviços serão ou não iniciados no boot do Debian
+  	update-rc.d serviço default 21 19 - habilita serviço nos runlevels 2, 3, 4 e 5 (padrão) iniciando em 21 e parando em 19
+  	update-rc.d serviço start 21 2 3 4 5 . stop 19 0 1 6 - habilita serviço em 2, 3, 4 e 5 iniciando em 21 e parando em 19 em 0 1 e 6
+  	update-rc.d serviço remove - desabilita o serviço (script não deve mais existir)
+  	update-rc.d -f serviço remove - desabilita o serviço
+  	-n - só testa, sem alterar nada
+	init - muda o runlevel
+	telenit - muda o runlevel
+	runlevel - mostra o runlevel anteior e o atual
+  	N 2 - está no runlevel 2, runlevel nunca foi mudado
+	init and telinit - muda o runlevel
+  Systemd - gerenciador de processos mais moderno
+	/usr/lib/systemd/ - local dos scritps
+  	user/ - pasta dos programas e usuário
+	/lib/systemd/system - local dos scripts
+	/etc/systemd/ - configurações do systemd
+	/run/systemd/ - arquivos de controle do systemd
+  	/run/systemd/users - usuários logados
+	systemctl - semelhante ao update-rc.d
+  	list-units - mostra as unidades do systemd
+  	start/stop/restart - inicia, pára ou reinicializa um serviço
+  	enable/disable - habilita ou desabilita um serviço
+  	set-default - configura o runlevel padrão
+  	halt/poweroff/suspend/hibernate/reboot/rescue - entra no runlevel especificado
+	systemd-delta - mostra diferenças nos scripts
+	jornalctl - log do systemd}
+202-2{ Peso 4 - Recuperação de sistema
+  grub1 - boot loader
+	hd0,1 - primeiro disco, segunda partição
+	find /boot/grub/stage1 - procura o arquivo do primeiro estágio do boot
+	root (hd0,0) - diz ao grub onde está o stage1
+	setup (hd0) - instala o grub no primeiro disco
+	quit - sai do grub
+	/boot/grub/menu.lst - arquivo de configuração do grub
+	grub-install - instala o grub no disco
+  grub2 - nova versão do grub
+	e - altera os menus do grub
+	/boot/grub/grub.cfg - arquivo de configuração do grub2 (não deve ser editado)
+	/etc/default/grub - personaliza o grub2
+  	GRUB_DEFAULT - número da entrada padrão começando do 0
+    	saved - vai usar o último menu escolhido
+  	GRUB_TIMEOUT - tempo limite para entrar no padrão
+  	GRUB_GFXMODE=1024x768x16,640x480x8 - resolução da tela
+  	init=/bin/bash
+	/etc/grub.d - personalizações avançadas
+	hd0,1 - primeiro disco, primeira partição
+	update-grub - atualiza o grub.cfg
+	grub-mkconfig -o /boot/grub/grub.cfg - atualiza o grub.cfg
+  mount - monta um sistema de arquivos
+	-o remount,rw - remonta a partição com permissão de escrita
+	-f - simula a montagem
+	-ro - monta somente leitura
+	-a - monta todos os sistemas que possuem "auto" no fstab
+	-t - tipo de sistema de arquivos
+  efibootmgr
+	-n - muda a ordem do boot
+	-b -B - muda a ordem do boot e deleta a entrada
+	-o - seta a ordem do boot
+	-c - cria um número de boot
+	/boot/efi/ - local do efibootmgr
+  initrd - kernel 2.4 ou anterior
+	mkinitrd - criar initram
+  initramfs - kernel 2.6 ou superior
+	dracut - cria initram }
+202-3{ Peso 2 - Boot loaders alternativos
+  syslinux - boot loader alternativos
+	/usr/share/syslinux - local de vários arquivos mbr
+	/usr/lib/syslinux - local de vários arquivos mbr
+  	mbr.bin - principal arquivo de mbr
+	syslinux.cfg - arquio de configuração do syslinux
+	syslinux -i /dev/sdb - grava o boot no disco sdb
+	syslinux -d syslinux -i /dev/sdb1
+  extlinux - para fat, ext2 e ext3
+	partição id b
+	/boot/extlinux - pasta do extlinux
+	extlinux -i /boot/extlinux - cria os arquivos de boot (--install)
+	extlinux.cnf - arquivo de configuração (deve estar na mesma pasta do extliux)
+  pxelinux - para boot pela rede
+	/srv/tftp - pasta raiz do tftp
+  	pxelinux.cfg/ - pasta de configurações do pxe
+  	pxelinux.0 - arquivo enviado para os cliente
+  isolinux - para boot por cd
+	el torito - formato padrão
+	/boot/isolinux - pasta de boot
+	isolinux.bin - arquivo de boot
+	isolinux.cfg - arquivo de configuração
+	mkisofs - cria o arquivo iso
+  	-o arquivo.iso - nome do arquivo
+  	-b boot/isolinux/isolinux.bin - arquivo de boot
+	genisoimage - semelhante ao mkisofs
+  memdisk - boot em disquete
+  /boot/efiboot.img - boot efi
+	uefi/shim.efi - arquivo usados pelo efi
+	uefi/grubx64.efi - arquivo usado peo efi
+	bcfg - shell uefi
+  U-Boot - boot para dispositivos embracados
+  nvme - disco precisa ter suporte
+	/dev/nvme* - endereço dos dicos}
+203-1{ Peso 4 - Trabalhando com o sistema de arquivos Linux
+  mount - monta um dispositivo no sistema de arquivos
+	-t - tipo de sistema de arquivo
+	sem argumentos - mostra os dispositivos montados
+  umount - desmonta um dispositivo do sistema de arquivos
+  /etc/mtab - mostra os dispositivos montados (está sem desuso, link par /proc/mounts)
+  /proc/mounts - mostra os dispositivos montados
+	rootfs - initramfs
+  /etc/fstab - montagem automática
+	dispositivo ponto_de_montagem sistema_de_arquivos opções dump ordem_de_montagem_e_checagem
+	ro - somente leitira
+	rw - leitura e escrita
+	noauto - desativa a montagem no "mount -a"
+	user
+	users
+  uuid - identificação única de dispositivos de armazenamentos
+	blkid - mostra os uuid dos dispositivos
+	lable - identificação por nome
+  swap - memória virtual
+	mkswap - cria uma área de swap
+	swapon - habilita o swap
+  	-L - ativa a partição por label
+  	-U - ativa a partição por uuid
+  	-p 0-32767 - define a prioridade do swap, quanto maior mais prioritário
+  	-s/--show - mostra estatísticas do swap
+    	/proc/swaps - estatísticas do swap
+	swapoff - desativa o swap
+  sync - grava os dados do cache no disco
+  systemd mount units - montagem de dispositivos via systemd
+	/usr/lib/systemd/system/tmp.mount
+  	individual
+    	[Unit]
+    	Description=Temporary Directory
+    	Documentation=man:hier(7)
+    	Documentation=http://www.freedesktop.org/wiki/Software/systemd/APIFileSystems
+    	DefaultDependencies=no
+    	Conflicts=umount.target
+    	Before=local-fs.target umount.target
+    	[Mount]
+    	What=tmpfs
+    	Where=/tmp
+    	Type=tmpfs
+    	Options=mode=1777,strictatime
+  	via fstab
+    	[Unit]
+    	SourcePath=/etc/fstab
+    	Before=local-fs.target
+    	RequiresOverridable=systemd-fsck@dev-disk-byx2dlabel-FPMWORK.service
+    	After=systemd-fsck@dev-disk-byx2dlabel-FPMWORK.service
+    	[Mount]
+    	What=/dev/disk/by-label/FPMWORK
+    	Where=/home/fpm
+    	Type=ext4
+    	FsckPassNo=3}
+203.2{ Peso 3 - Manutenção em um sistema de arquivos Linux
+  fdisk/cfdisk - manutenção na tabela de partições
+  /proc/partitions - relação das partições do disco
+  /proc/filesystems - relação dos sistema de arquivos que o kernel suporta
+  mkfs - formata
+	-t - sistema de arquivos
+  mke2fs - formata ext2
+	-j - formata ext3
+	-c - testa e fixa os badblocks
+  tune2fs - ajustes no sistema de arquivos
+	-e - remount somente leitura em caso de pane
+	-f - força a ação
+	-j - converte de ext2 para ext3
+	-c - número de montagens antes do fsck
+	-i - tempo máximo ants do fsck
+  	d - dias
+  	w - semanas
+  	m - meses
+  dumpe2fs - mostra informações sobre o sistema de arquivos
+	-f - mostra as informações clusters
+	-h - mostra apenas as informações do sistema de arquivos
+	-b - mostra os badblocks
+  fsck - faz a checagem lógica do sistema de arquivos
+	-y - encara "yes" para todos as perguntas
+	-t - especifica o sistema de arquivos
+	-a - repara automaticamente
+	-n - não corrige, apenas informa os erros
+	-r - modo interativo
+	-A - usa fstab para identificar o tipo de sistema de arquivos
+	-s - faz a checagem de um sistema por vez
+	-P - checa sistemas em paralelo
+	-R - ignora no /
+	saídas de erro
+  	0 - ok
+  	1 - erros encontrados e corrigidos
+  	2 - é necessário o boot
+  	4 - erros não corrigidos
+  	8 - erro operacional
+  	16 - erro de sintaxe
+  	32 - fsck cancelado
+  	128 - erro na lib
+  e2fsck - checa o sistema de arquivos ext2, ext3 e ext4
+  xfs - sistema de arquivos
+	xfs_info - informações sobre o sistema de arquivos
+	xfs_check - checa se há erros no sistema de arquivos (desmontado)
+	xfs_repair - repara um sistema de arquivos (desmontado)
+  	-L - zera log
+  	-v - verbose
+  	-V - versão
+  	-r - dangerous repair
+	xfsdump - cria um backup que pode ser restaurando pelo xfsrestore
+	xfsrestore - restaura um sistema xfs criado pelo xfsdump
+  	-b - tabanho do bloco
+  debugfs - ações de baixo nível no sistema de arquivo ext2, ext3 e ext4
+	-w - abre no modo de escrita
+	lsdel - mostra os arquivos apagados
+	undelete - restaura um arquivo apagado
+  smartctl
+	-H - teste simples
+	-a - informações completas
+  badblocks - procura por setores defeituosos
+	-v - verbose
+	-vv - mais detalhes do que o verbose
+	-n - teste de escrita não destrutiva
+	-w - teste de escrita destrutiva
+	-b - tamanho do bloco
+  btrfs - sistema de arquivos
+	-n - tamanho do block
+	subvolume - cria um subvolume
+  	create /caminho/sub_volume - cria um subvolume em caminho
+  	list - lista os subvolumes
+  	delete - deleta um subvolume
+  	snapshot /origem /origem/backup - cria um snapshot de /origem em /origem/backup
+	btrfs-convert - converte um sistema de arquivos extx em btrfs}
+203.3{ Peso 2 - Criando e configurando opções do sistema de arquivos Linux
+  autofs - montagem automática de drives
+	/etc/auto.master - principal arquivo de configuração (mapa mestre)
+  	/pasta_monitorada /arquivo_de_mapa  opções_opcionais
+  	ex: /mnt/ /etc/auto.misc  --timeout=10
+  	/etc/auto.misc - mapa
+    	cdrom   -fstype=iso9660,ro  :/dev/sdc
+    	ricado  -fstype=nfs     	192.168.0.1:/home/ricardo
+    	*   	-fstype=nfs     	192.168.0.1:/home/& (&=*)
+	automount - lê o auto.master e cria um job para cada entrada no arquivo
+  dd if=origem of=imagem.iso - cria uma imagem iso da origem
+  cdrecord dev=/dev/sdb imagem.iso - grava imagem no cd/dvd gravável
+  mkisofs -o imagem.iso pasta1 pasta2 pasta3 - cria uma iso com as pastas especificadas
+	as pastas ficarão na raiz do cd
+	iso9660 - formato padrão
+	-graft-points pasta1=caminho1 pasta2=caminho2 - cria uma iso com as pastas especificadas, send que cada pasta ficará em seu respectivo caminho
+	-J - formato Juliet (Windows, nomes grandes)
+	-R - formato Rock Ridge (nomes grandes, links simbólicos)
+	-udf - Universal Disk Format, pode ser lido por qualquer sistema.
+	Understanding of automount units
+	UDF and ISO9660 tools and utilities
+	Awareness of other CD-ROM filesystems (HFS)
+	Awareness of CD-ROM filesystem extensions (Joliet, Rock Ridge, El Torito)
+	Basic feature knowledge of data encryption (dm-crypt / LUKS)
+  cryptsetup - criptografa um disco
+	LUKS - Linux Unified Key Setup, criptografia usada como padrão
+	--verbose - exibe mais informções
+	--verify-passphrase - pede uma senha
+	luksFormat /dev/sdb1 - criptografa o dispositivo /dev/sdb1
+	luksOpen /dev/sdb1 storage - abre o dispositivo criptografado /dev/sdb1 como um dispositivo em /dev/mapper/storage
+	/etc/crypttab
+  	storage /dev/sdb1 none}
+204.1{ Peso 3 - Configurando RAID
+  RAID - Redundant Array of Independent Disks
+  0, 1, 4, 5, 6, 10 - níveis suportados
+	0 - striping
+	1 - espelhamento
+	5 - paridade
+  /proc/mdstat - contém o status do raid
+  mdadm - ferramenta para gerenciar o raid
+	--monitor - monitorar
+	-C /dev/md0 - cria o dispositivo de raid
+	-v - verbose
+	-l 1 - tipo de raid
+	-n 2 - número de discos
+	/dev/sdb /dev/sdc - discos participantes do raid
+	/etc/mdadm.conf - arquivo de configuração
+  	DEVICE/DEV /dev/sdb /dev/sdc - discos que estão habilitados para raid
+  	ARRAY /dev/md0 devices=/dev/sdb,/dev/hdc level=1 - configuração do raid
+	--misc --examine /dev/sdc - mostra se o disco faz parte de um raid
+	-Es - comando para criar o mdadm.conf
+	--detail - mostra informações do raid
+	-f - falha um disco
+	-r - retira um disco do raid
+	-a - adiciona um disco ao raid
+  FD - identificação do tipo de partição para raid}
+204.2{ Peso 2 - Ajustar o acesso aos dispositivos de armazenamento
+  DMA - Direct Memory Access
+  hdparm - mostra (sem parâmetro) e ajusta valores do disco
+	-d1 - ativa o dma
+	-i - mostra mais informações sobre o disco
+  sdparm - o mesmo que hdparm, mas para discos sata e scsi
+	-a - mostra informações do disco
+  sysctl fs.file-max - número máximo de arquivos abertos
+	/proc/sys/fs/file-max - número máximo de arquivos abertos
+  iscsi - scsi sobre ip
+	iet - servidor
+  	iscsitarget/iscsitarget-dkms - pacotes
+  	/etc/iet - pasta de configurações
+    	ietd.conf - principal arquivo de configuração
+      	Target endereço
+      	Lun 0 Path=/dev/sda
+      	Lun 1 Path=/dev/sdb
+	open-iscsi - cliente
+  	iscsi-initiator-utils/open-iscsi - pacotes
+  	/etc/iscsi - pasta de configurações
+    	iscsid.conf - principal arquivo de configuração
+	iqn.aaaa-mm.dominioreverso:identificador - endereço do alvo
+  	aaaa-mm - ano e mês de criação
+  	indentificador - opcional
+	scsi_id - identificador
+	wwid, wwn, endereços de lun
+  iscsiadm - administra o iscsi
+	-m dicovery -t sendtargets -p ip_do_servidor
+  	-o delete - apaga o registro do iscsi
+	-m node -p ip_do_servidor --target=endereço --login
+	-m session
+  /var/lib/iscsi - local sobtre os alvos
+  fstrim - descarta blocos sem uso no sistema de arquivos
+  iscsid.conf - arquivo de configuração
+  multipath -l - mostra informações sobre as luns
+  aoe - ata over ethermet
+  fcoe - fiber channel over ethernet
+  nvme - storage pci express
+	/dev/nvme* - endereço dos dispositivos físicos}
+204.3{ Peso 3 - LVM
+  lvm - Logical Volme Manager
+  /etc/lvm/lvm.conf - arquivo de configuração
+  vgscan - procura os dispositivos lvm e cria o lvm.conf
+  8E - id da partição lvm
+  pvcreate - habilita uma partição para fazer parte do sistema lvm
+	pvcreate /dev/sdb1 - habilita a partição sdb1
+  pvdisplay - mostra os pv disponíveis
+  pvscan - procura por pvs
+  vgcreate - cria o grupo de volumes
+	-s muda o tamanho do pe
+	vgcreate vgnome /dev/sdb1 /dev/sdb2 - cria o vg vgnome
+  vgdisplay - mostra os vgs disponíveis
+  vgchange - muda os atributos de um vg
+	-a y - ativa o vg
+	-a n - desativa o vg
+  vgreduce - tira um pv do vg
+  vgextend - adiciona um pv a um vg
+  vgrename - renomeia um vg
+  lvcreate - cria um volume lógico
+	-L - tamanho
+	-n - nome
+	lvcreate -L 100M -n boot vgnome - cria um lv chamado boot de 100Mb
+	-l - cria por número de pe
+	-s/--snapshot - cria um snapshot do lv
+  	lvcreate -s lvnome caminho - cria um snapshot do vlnome em caminho
+  	podem ser alterados
+  lvdisplay - mostra informações sobre os volumes lógicos
+  lvresize - aumenta o tamanho de um lv
+  lvextend - aumenta um lv
+  lvreduce - diminui um lv
+  lvrename - renomeia um lv
+  /dev/vgnome/lvnome - endereço da partição lv}
+205.1{ Peso 3 - Configurações básicas de rede
+  /etc/sysconfig/network-scripts - pasta com os arquivos de configuração de rede no Red Hat
+  /etc/network/interfaces - arquivo de configuração da rede no Debian
+  ifconfig - configuração manual da interface de rede
+	sem argumentos - mostra informações de todas as interfaces
+	eth0 - interface a ser configurada
+	up - levanta a interface
+	down - derruba a interface
+	netmask - especifica a máscara de rede
+	broadcast - habilita, desabilita ou define o endereço de broadcast
+	pointopoint - modo ponto a ponto
+	hw - altera o mac address
+  	classe - pode ser ether, ax25, arcnet ou netrom
+  	ifconfig eth0 hw ether 00:11:22:33:44:55 - define um novo mac address
+	arp - habilita ou não o arp
+	promisc - habilita ou não o modo promíscuo
+	ifconfig eth0:0 - cria a interface virtual eth0:0
+	ifconfig add - cria uma nova interface virtual
+	ifconfig eth0 -arp - desabilita o arp
+	mtu - muda o mtu da rede
+  arp - address resolution protocolo
+	sem argumentos - mostra taberla arp
+	/proc/sys/net/ipv4/neigh/eth0/gc_stale_time - tempo da tabela arp
+	-n - não resolve nomes
+	-d - exclui uma entrada da tabela arp
+	-s ip mac - adiciona uma entrada estática na tabela arp
+	-f - adiciona dados na tabela arp lendo um arquivo
+  arpwatch - monitora a rede em busca de mudanças em arp/ip
+	-d - mostra mensagens na tela
+	-i - especifica a interface a monitorar
+  route - manipula a tabela de roteamento
+	add - adicionar uma rota
+	del/delete - deleta uma rota
+	-net - rota para rede
+	-host - rota para host
+	default - adiciona a rota padrão
+	gw - endereço do gateway
+  ip - configura a rede
+	agrega funções do ifconfig, route, arp, mii-tool, ethtool e outros
+	link - informações sobre a conexão de rede
+	show - mostra informações
+	address - manipula ip
+	route - manipula o roteamento
+	list - mostra informações
+  wireless - redes sem fio
+	wireless-tools - pacote de programas
+	iwlist - lista as redes disponíveis
+  	scan/scannig - lista as redes disponíveis
+	iwconfig - configura uma rede sem fio
+  	essid - nome da rede
+	wep/wpa - criptografia (wpa quebra o padrão wifi)
+  iw - manipula os dispositivos wireless
+	dev wlan0 - manipula o dispositivo wlan0}
+205.2{ Peso 4 - Configurações avançadas e análise de rede
+  route - manipulada a tabela de roteamento
+	campo flags - informações sobre a rota
+  	U - rota está em up
+  	G - gateway padrão
+  	H - destino é um host
+  	R/D/M - rota manipulada por protocolos de roteamento dinâmico
+  	! - rota rejeitada
+	sysctl net.ipv4.ip_forward=1 - habilita o roteamento
+  ping, ping6 - teste de conectividade
+  netstat - informações sobre redes, rotas e conexões
+	-l - portas locais
+	-inet - protocolos tcp e udp
+	-r - mostra tabela de roteamento
+  lsof - lista os objetos em uso pelo sistema
+	-i : objetos IP
+  	tcp - mostra as portas TCP utilizadas
+  	lsof -i @192.168.0.1 - mostra as cpnexões com o IP 192.168.0.1
+	-a - todas as conexões
+	-t - tcp
+	-u - udp
+	-e - mais informações
+	-A - especifica a familia de protoclos, que pode ser inet, unix, ipx, ax25, netrom e ddp
+	-n - não resolve nomes
+	-p - mostra o pid e o nome do programa que está usando a conexão
+	-r - mostra a tabela de rotas
+	-l - portas locais
+	-c - mostra informações a cada segundo
+  nc - testa a comunicação entre aplicações
+	nc 192.168.0.1 22 - testa a comunicação com o ssh da máquina 192.168.0.1
+	-z - não estabelece a conexão
+	1-1023 - range de portas para testar
+	-v - mostra mais informações
+	-p - porta
+	-l - local (abrirá a porta especificada com o parâmetro -p e aguardará por conexões)
+	echo "teste" | nc 192.168.0.1 1234 - exibe mensagem "teste" na máquina 192.168.0.1 na porta 1234
+  nmap - scan de portas
+	-p - porta
+	-sV - versão do serviço remoto
+	-O - descobre o sistema operacional do alvo
+  tcpdump - sniffer de rede
+	-c - número de pacotes capturados
+	-D - lista as interfaces ativas no sistema
+	-i - especifica a interface a ser capturada
+	-q - montra informações mais sucintas
+	-t - não mostra informações de hora
+	-v/-vv/-vvv - nível de detalhes
+	-w - grava em um arquivo .cap
+	-r - lê o arquivo .cap
+	net - pacotes vindos ou destinados à rede
+	host - pacotes vindos ou destinados ao host
+	port - pacotes vindos ou destinados à porta
+	portrange - range de portas
+	src - origem
+	dst - destino
+	!/not - mostra pacotes que não correspondam à expressão
+	&&/and - mostra pacotes que correspondam às duas expressões
+	|/or - mostra pacotes que correspondam à pelo menos uma das expressões
+  ss - mostra as conexões de rede
+	-n - não resolve nomes
+	-l - portas locais abertas
+	-m - uso de memória ram pelo soquete
+	-p - processo usando o soquete
+	-4 - somente ipv4
+	-6 - somente ipv6
+	-t - tcp
+	-u - udp
+	-x - conexões unix}
+205.3{ Peso 4 - Soluções de problemas de rede
+  /etc/resolv.conf - arquivo de configuração do cliente dns
+  /etc/hosts - mapeamentos locais de nomes/ip
+  /etc/hostname, /etc/HOSTNAME - nome local da máquina
+  /etc/hosts.allow, /etc/hosts.deny - arquivos com as regras do tcp-wrapeers
+  host - cliente dns com respostas enxutas
+  dig - cliente dns mais completo
+	@192.168.0.1 - usa o servidor dns 192.168.0.1
+  traceroute - mostra a rota para o alvo (ipv4)
+  traceroute6 - mostra a rota para o alvo (ipv6)
+  mtr - mostra o roteamento de forma online
+  ip route - manipula a tabela de roteamento}
+206.1{ Peso 2 - Compilando e instalando programas apartir do código fonte
+  tar - aglutina e desaglutina um conjunto de arquivos
+	-z - compacta com gzip
+	-j - compacta com bzip2
+	-J - compacta com xz
+	-c - cria um arquivo
+	-x - extrai um arquivo com aglutinado
+	-t - lista os arquivos do aglutinado
+	-f - expecifica o nome do arquivo aglutinado
+  gzip - formato de compressão mais rápido do que o bzip2
+	gunzip - descomprime
+	zcat - lê arquivos compactados com gzip
+  bzip2 - formato de compressão com taxa melhor do que o gzip
+	bunzip2 - descoprime
+	bzcat - lê arquivos compactados com bzip2
+  xz - manipula arquivos compactados no formato xz
+	-z - comprime
+	-d - descomprime
+	-l - lista os arquivos de um arquivos comprimido
+	-v - mostra mais informações sobre o processo
+  /usr/src/ - local indicado para código fonte
+  /usr/local - local geralmente usado para programas compilados
+	README e INSTALL - arquivos de documentação para o processo de compilação
+  configure - configura a compilação para a plataforma e versão do sistema operacional
+	--prefix=/opt - define a pasta /opt como local de instalação
+	--help - mostra outras opções do configure
+	Makefile - arquivo gerado pelo script configure
+  make - compila o progrma de acordo com o Makefile
+	install - instala o programa
+  uname - mostra informações sobre o kernel
+	-r - mostra a versão do kernel
+  patch - aplica uma atualização ao código fonte
+	-p - número de níveis que pode descer na árvore de diretório
+	-R - desfaz o patch
+	-o - gera um novo arquivo preservando o original
+	-b - gera um backup dos arquivos originais}
+206.2{ Peso 3 - Operações de backup
+  /home, /etc, /var, /opt - diretórios para backup
+  Amanda, Bacula, BackupPC. BareOS - opções de software de backup
+  /dev/st*, /dev/nst* - dispositivos de fita
+	fitas são lentas, mas são baratas
+  mt - comando para manipulação de fitas
+	cpio - pacote que contém o mt
+  	-o - saída
+  	-v - verbose
+  	-i - entrada
+  	-d - preserva a hierarquia original dos diretórios
+  tar - aglutina arquivos e diretórios
+  dd - cópia bit a bit
+  scp - cópia segura pela rede
+  rsync - sincronismo de arquivos
+	-r - recursivo
+	-e ssh - faz o sincronismo via ssh
+	-P - continua uma transferência parcial}
+206.3{ Peso 1 - Notificando os usuários sobre manutenção do sistema
+  wall,write - envia mensagens para todos os terminais
+  shutdown - desliga ou reinicia o equipamento
+	-r - reboot
+	-h - desliga
+	+5 - em 5 minutos
+	-c - cancela o shutdown
+	shutdown -r +5 'Reboot em 5 minutos' - Exibe uma mensagem nos terminais avisando sobre o reboot em 5 minutos
+  /etc/issue - mensagem exibida antes do login local
+  /etc/issue.net - mensagem exibida antes do login remoto
+	Banner /etc/issue.net - parâmetro do ssh para exibir a mensagem
+  /etc/motd - mensagem exibida depois do login
+  systemctl start rescue --no-wall - não mostra mensagens nos terminais}
+
+
+
