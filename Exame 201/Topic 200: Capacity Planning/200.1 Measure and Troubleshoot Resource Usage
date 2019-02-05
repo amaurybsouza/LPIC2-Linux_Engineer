@@ -1,15 +1,19 @@
 The following is a partial list of the used files, terms and utilities:
 
 
-1) iostat
 
-2) netstat
 
-3) w
 
-4) top
 
-5) sar
+#iostat
+
+#netstat
+
+#w
+
+#top
+
+#sar
 
 processes blocked on I/O
 
