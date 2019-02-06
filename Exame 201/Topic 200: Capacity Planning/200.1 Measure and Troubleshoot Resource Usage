@@ -30,7 +30,7 @@ avg-cpu:  %user   %nice %system %iowait  %steal   %idle
 
 
 - Opções do comando iostat
--m: mostra o relatório os dados em mega bytes.
+-m: mostra o relatório, os dados em mega bytes.
 -h: mostra em modo mais humano, mais detalhado.
 -c: mostra só dados de CPU.
 -d: mostra apena os devices no relatório. 
@@ -40,6 +40,13 @@ avg-cpu:  %user   %nice %system %iowait  %steal   %idle
 
 $iostat -c 2 (mostra os dados de CPU a cada dois segundos)
 Linux 4.15.0-45-generic (wk2001876) 	05/02/2019 	_x86_64_	(8 CPU)
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           4,35    0,04    1,19    1,34    0,00   93,09
+
+
+$iostat -c 2 5 (mostra os dados de CPU a cada dois segundos, por 5 vezes)
+Linux 4.15.0-45-generic (wk2001876)     05/02/2019      _x86_64_        (8 CPU)
 
 avg-cpu:  %user   %nice %system %iowait  %steal   %idle
            4,35    0,04    1,19    1,34    0,00   93,09
@@ -68,8 +75,34 @@ loop14            0,01         0,03         0,00        127          0
 
 
 
+#vmstat (mostra informações sobre os processos, memória, paginação, buffer, blocos de I/O)
+
+$vmstat 
+procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 0  0      0 891284  10100  80544    0    0    77     6   12   22  0  0 100  0  0
 
 
+-> As duas primeiras colunas do comando "vmstat" são importantes:
+
+r: é o que está na fila de processamento dos processadores.
+
+b: é o que está em estado de bloqueio, processo bloqueado, ele fica com esse "b"
+
+
+- Opções do comando vmstat
+-d: mostra os dispositivos que tem na máquina (sda/sdb).
+-p: mostra as partições (tem que especificar a partição).
+
+
+
+#mpstat (mostra informações sobre CPU, mais detalhado do que eu tenho no iostat)
+
+$mpstat 
+Linux 4.9.0-8-amd64 (lpi2) 	06-02-2019 	_x86_64_	(1 CPU)
+
+21:05:28     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+21:05:28     all    0,05    0,00    0,18    0,06    0,00    0,01    0,00    0,00    0,00   99,69
 
 
 
@@ -112,7 +145,6 @@ iostat (1)           - Report Central Processing Unit (CPU) statistics and input
 
 #blocks out
 
-#vmstat
 
 #pstree, ps
 
