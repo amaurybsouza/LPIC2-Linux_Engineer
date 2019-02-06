@@ -1,15 +1,6 @@
 The following is a partial list of the used files, terms and utilities:
 
 
-<<<<<<< HEAD
-#iostat
-
-teste
-
-
-=======
->>>>>>> d53bb602dc08e128f7652916ff40e846e4ba1445
-
 
 #### MEDIR RESOLVER PROBLEMAS DE USO DE RECURSOS (iostat, vmstat e mpstat)
 
@@ -17,19 +8,24 @@ teste
 
 
 
-
 #iostat (relatório de uso de CPU e de I/O dos dispositivos de armazenamento)
 
-- Agora vanmos entender uma linha importante do comando iostat:
+- Agora vamos entender uma linha importante do comando iostat:
 
 avg-cpu:  %user   %nice %system %iowait  %steal   %idle
            4,23    0,05    1,11    1,73    0,00   92,88
 
+
 %user (tempo médio de uso de CPU de usuários, software que eu executei o usuário root, interface gráfica).
+
 %nice (aplicações de usuário em que foi definido um nice especifico, alguma prioridade)
+
 %system (uso de CPU pelo kernel, alocação de recursos)
+
 %iowait (tempo de espera da CPU para esperar um procedimento de entrada e saída em disco, lentidão do disco, para escrever em determinado de setor do disco)
+
 %steal (usado em máquinas virtuais, CPU virtual, tempo da CPU da máquina virtual ficou esperando a CPU real dar o recurso para a CPU virtual)
+
 %idle (tempo que minha CPU ficou em status idle)
 
 
