@@ -105,6 +105,104 @@ Linux 4.9.0-8-amd64 (lpi2) 	06-02-2019 	_x86_64_	(1 CPU)
 21:05:28     all    0,05    0,00    0,18    0,06    0,00    0,01    0,00    0,00    0,00   99,69
 
 
+#sar (mostra histórico de uso dos recursos de hardware do sistema)
+
+
+
+
+
+### COMANDOS PARA MONITORAÇÃO DE REDE, TABELA DE ROTEAMENTO, ESTATÍSTICAS DE REDE.
+
+
+#netstat (esse comando mostra por padrão as conexões de rede, tabelas de roteamento).
+
+
+-> Algumas opções do comando netstat:
+1) netstat -i (mostra todas as interfaces de rede que tem na máquina, e as estatisticas das interfaces)
+
+- mesmas estatisticas que o comando "ifconfig"
+
+$netstat -i
+Tabela de Interfaces do Kernel
+Iface      MTU    RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg
+enp0s3    1500     1979      0      0 0          1247      0      0      0 BMRU
+lo       65536      160      0      0 0           160      0      0      0 LRU
+
+
+2) netstat -s (mostra as estatisticas por protocolo, um resumo com as estatisticas de cada protocolo) 
+
+$netstat -s
+Ip:
+    Forwarding: 2
+    1854 total packets received
+    0 forwarded
+    0 incoming packets discarded
+    1854 incoming packets delivered
+    1372 requests sent out
+    40 outgoing packets dropped
+    40 dropped because of missing route
+Icmp:
+    82 ICMP messages received
+    0 input ICMP message failed
+    Histograma de entrada ICMP:
+        destination unreachable: 80
+        echo replies: 2
+    82 ICMP messages sent
+    0 ICMP messages failed
+    Histograma de saída ICMP
+        destination unreachable: 80
+        echo requests: 2
+IcmpMsg:
+        InType0: 2
+        InType3: 80
+        OutType3: 80
+        OutType8: 2
+Tcp:
+    0 active connection openings
+    1 passive connection openings
+    0 failed connection attempts
+    0 connection resets received
+    1 connections established
+    1474 segments received
+    995 segments sent out
+    0 segments retransmitted
+    0 bad segments received
+    0 resets sent
+Udp:
+    23 packets received
+    80 packets to unknown port received
+    0 packet receive errors
+    299 packets sent
+    0 receive buffer errors
+    0 send buffer errors
+    IgnoredMulti: 139
+
+
+3) netstat -a (mostra todos os sockets que estão em listen ou não)
+
+$netstat -a
+Conexões Internet Ativas (servidores e estabelecidas)
+Proto Recv-Q Send-Q Endereço Local          Endereço Remoto         Estado     
+tcp        0      0 0.0.0.0:ssh             0.0.0.0:*               OUÇA      
+tcp        0      0 192.168.0.116:ssh       192.168.0.107:52946     ESTABELECIDA
+tcp6       0      0 [::]:ssh                [::]:*                  OUÇA      
+udp        0      0 0.0.0.0:bootpc          0.0.0.0:*                          
+Domain sockets UNIX ativos (servidores e estabelecidas)
+Proto RefCnt Flags       Type       State         I-Node   Caminho
+unix  3      [ ]         DGRAM                    8983     /run/systemd/notify
+unix  2      [ ]         DGRAM                    8985     /run/systemd/cgroups-agent
+unix  2      [ ACC ]     STREAM     OUVINDO       8989     /run/systemd/private
+unix  8      [ ]         DGRAM                    8995     /run/systemd/journal/dev-log
+unix  2      [ ]         DGRAM                    8999     /run/systemd/journal/syslog
+unix  2      [ ACC ]     STREAM     OUVINDO       9004     /run/systemd/fsck.progress
+unix  2      [ ACC ]     SEQPACKET  OUVINDO       9008     /run/udev/control
+unix  2      [ ACC ]     STREAM     OUVINDO       9018     /run/systemd/journal/stdout
+unix  8      [ ]         DGRAM                    9020     /run/systemd/journal/socket
+unix  2      [ ACC ]     STREAM     OUVINDO       10845    /var/run/dbus/system_bus_socket
+unix  2      [ ]         DGRAM                    13220    /run/user/0/systemd/notify
+unix  2      [ ACC ]     STREAM     OUVINDO       13224    /run/user/0/systemd/private
+unix  2      [ ACC ]     STREAM     OUVINDO       13229    /run/user/0/gnupg/S.gpg-agent.extra
+unix  2      [ ACC ]     STREAM     OUVINDO       13232    /run/user/0/gnupg/S.gpg-agent.browse
 
 
 
@@ -118,14 +216,11 @@ Linux 4.9.0-8-amd64 (lpi2) 	06-02-2019 	_x86_64_	(1 CPU)
 
 
 
-Exemplos: 
-whatis iostat 
-iostat (1)           - Report Central Processing Unit (CPU) statistics and input/output statistics for devices and partitions.
 
 
 
 
-#netstat
+
 
 
 
@@ -134,11 +229,6 @@ iostat (1)           - Report Central Processing Unit (CPU) statistics and input
 
 
 #top
-
-
-
-#sar
-
 
 
 #processes blocked on I/O
