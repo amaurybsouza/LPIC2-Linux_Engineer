@@ -120,7 +120,7 @@ Linux 4.9.0-8-amd64 (lpi2) 	06-02-2019 	_x86_64_	(1 CPU)
 -> Algumas opções do comando netstat:
 1) netstat -i (mostra todas as interfaces de rede que tem na máquina, e as estatisticas das interfaces)
 
-- mesmas estatisticas que o comando "ifconfig"
+- mesmas estatisticas que o comando "ifconfig" mostra.
 
 $netstat -i
 Tabela de Interfaces do Kernel
@@ -129,7 +129,7 @@ enp0s3    1500     1979      0      0 0          1247      0      0      0 BMRU
 lo       65536      160      0      0 0           160      0      0      0 LRU
 
 
-2) netstat -s (mostra as estatisticas por protocolo, um resumo com as estatisticas de cada protocolo) 
+2) netstat -s (mostra as estatisticas por protocolo, um resumo com as estatisticas de cada protocolo, tráfico, etc) 
 
 $netstat -s
 Ip:
@@ -178,7 +178,7 @@ Udp:
     IgnoredMulti: 139
 
 
-3) netstat -a (mostra todos os sockets que estão em listen ou não)
+3) netstat -a (mostra todos os sockets que estão em listen ou não) *socket == processo, arquivo no sistema.
 
 $netstat -a
 Conexões Internet Ativas (servidores e estabelecidas)
@@ -203,6 +203,55 @@ unix  2      [ ]         DGRAM                    13220    /run/user/0/systemd/n
 unix  2      [ ACC ]     STREAM     OUVINDO       13224    /run/user/0/systemd/private
 unix  2      [ ACC ]     STREAM     OUVINDO       13229    /run/user/0/gnupg/S.gpg-agent.extra
 unix  2      [ ACC ]     STREAM     OUVINDO       13232    /run/user/0/gnupg/S.gpg-agent.browse
+
+
+#ss (um comando ótimo que está substituindo o netstat, novo modelo do netstat)
+
+- ss já padrão em muitas distros.
+
+- A diferença entre esses dois comandos são:
+-> netstat (pega os resultados lá do arquivo do /proc/sys) * /proc é um reflexo do que está no kernel.
+-> ss (pega os resultados direto na memória do kernel, é mais direto no kernel).
+
+
+-> Opções do comando ss:
+
+1) $ss (sem parâmetros mostra todas as conexões) *semelhante ao netstat -a
+
+
+2) $ss -s (mostra as estatisticas, um resumo dos pacotes, conexões TCP)
+Total: 1652 (kernel 2032)
+TCP:   40 (estab 25, closed 0, orphaned 1, synrecv 0, timewait 0/0), ports 0
+
+Transport Total     IP        IPv6
+*	  2032      -         -        
+RAW	  1         0         1        
+UDP	  20        15        5        
+TCP	  40        35        5        
+INET	  61        50        11       
+FRAG	  0         0         0 
+
+
+3) $ss -l (mostra as conexões em estado listening)
+
+
+4) $ss -t (conexões TCP, sockets TCP)
+ss -t
+State                         Recv-Q                      Send-Q                                            Local Address:Port                                              Peer Address:Port                      
+ESTAB                         0                           0                                               200.144.112.165:54062                                            157.240.12.53:https                     
+ESTAB                         0                           0                                               200.144.112.165:45944                                          151.101.176.175:https                     
+ESTAB                         0                           0                                               200.144.112.165:44610                                            200.144.114.2:http                      
+ESTAB                         0                           0                                               200.144.112.165:42426                                          172.217.192.189:https                     
+ESTAB                         0                           0                                               200.144.112.165:46776                                          151.101.176.175:https                     
+ESTAB                         0                           0                                               200.144.112.165:60598                                            108.174.11.17:https                     
+ESTAB                         0                           0                                               200.144.112.165:37266                                          151.101.253.168:https                     
+ESTAB                         0                           0                                               200.144.112.165:41162                                            172.217.28.10:https                     
+ESTAB                         0                           0                                               200.144.112.165:41160                                            172.217.28.10:https 
+
+
+5) $ss -tn (mostra as conexões TCP e a opção n para não resolver)
+
+
 
 
 
