@@ -258,21 +258,21 @@ ESTAB                         0                           0                     
 
 
 
-                                                                                        ┌─────────────────────────────────┐
-                                                                                        │ IP traffic monitor              │
-                                                                                        │ General interface statistics    │
-                                                                                        │ Detailed interface statistics   │
-                                                                                        │ Statistical breakdowns...       │
-                                                                                        │ LAN station monitor             │
-                                                                                        │─────────────────────────────────│
-                                                                                        │ Filters...                      │
-                                                                                        │─────────────────────────────────│
-                                                                                        │ Configure...                    │
-                                                                                        │─────────────────────────────────│
-                                                                                        │ About...                        │
-                                                                                        │─────────────────────────────────│
-                                                                                        │ Exit                            │
-                                                                                        └─────────────────────────────────┘
+                                                                        ┌─────────────────────────────────┐
+                                                                        │ IP traffic monitor              │
+                                                                        │ General interface statistics    │
+                                                                        │ Detailed interface statistics   │
+                                                                        │ Statistical breakdowns...       │
+                                                                        │ LAN station monitor             │
+                                                                        │─────────────────────────────────│
+                                                                        │ Filters...                      │
+                                                                        │─────────────────────────────────│
+                                                                        │ Configure...                    │
+                                                                        │─────────────────────────────────│
+                                                                        │ About...                        │
+                                                                        │─────────────────────────────────│
+                                                                        │ Exit                            │
+                                                                        └─────────────────────────────────┘
 
 - como que funciona essa ferramenta?
 - alguns processos ineternos se comunicam via interface de loopback, por isso aparece muito "UDP (234 bytes) from 127.0.0.53:53 to 127.0.0.1:45554 on lo"   
